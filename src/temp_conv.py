@@ -1,8 +1,6 @@
-import os,sys
-
 def celsius_to_fahrenheit(celsius):
     """Convert Celsius to Fahrenheit"""
-    return (celsius * 9/5) + 32
+    return (celsius * 9 / 5) + 32
 
 
 def celsius_to_kelvin(celsius):
@@ -12,7 +10,7 @@ def celsius_to_kelvin(celsius):
 
 def fahrenheit_to_celsius(fahrenheit):
     """Convert Fahrenheit to Celsius"""
-    return (fahrenheit - 32) * 5/9
+    return (fahrenheit - 32) * 5 / 9
 
 
 def fahrenheit_to_kelvin(fahrenheit):

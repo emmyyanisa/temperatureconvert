@@ -24,6 +24,7 @@ def test_fahrenheit_to_celsius():
     assert fahrenheit_to_celsius(32) == 0
     assert fahrenheit_to_celsius(212) == 100
 
+
 def test_fahrenheit_to_kelvin():
     assert fahrenheit_to_kelvin(32) == 273.15
     assert fahrenheit_to_kelvin(212) == 373.15
@@ -33,6 +34,7 @@ def test_kelvin_to_fahrenheit():
     # 273.15 K = 32 F
     assert kelvin_to_fahrenheit(273.15) == 32.0
     assert kelvin_to_fahrenheit(373.15) == 212.0
+
 
 def test_kelvin_to_celsius():
     assert kelvin_to_celsius(273.15) == 0
