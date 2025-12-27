@@ -1,0 +1,24 @@
+name: Performance
+
+on: [push, pull_request]
+
+jobs:
+  performance:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install pytest
+        pip install -e .
+
+    - name: Run performance tests
+      run: |
+        pytest tests/test_performance.py -v -s

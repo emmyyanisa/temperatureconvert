@@ -1,0 +1,42 @@
+name: API Documentation
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install -e .
+        pip install pdoc3
+
+    - name: Generate API docs
+      run: |
+        pdoc --html --output-dir docs temp_conv --force
+
+    - name: Upload documentation
+      uses: actions/upload-artifact@v4
+      with:
+        name: api-docs
+        path: docs/
+
+    - name: Summary
+      run: |
+        echo "---API documentation generated!!---"
+        echo "---Files available in artifacts---"
