@@ -1,6 +1,5 @@
-"""Performance tests."""
+"""Tests for temperature converter."""
 
-import time
 from src.temp_conv import (
     celsius_to_fahrenheit,
     celsius_to_kelvin,
@@ -11,47 +10,30 @@ from src.temp_conv import (
 )
 
 
-def test_single_function_speed():
-    """Test single function performance."""
-    iterations = 100_000
-
-    start = time.time()
-    for _ in range(iterations):
-        celsius_to_fahrenheit(25)
-    elapsed = time.time() - start
-
-    print(f"\n{iterations:,} conversions: {elapsed:.3f}s")
-    assert elapsed < 1.0
+def test_celsius_to_fahrenheit():
+    assert celsius_to_fahrenheit(0) == 32
+    assert celsius_to_fahrenheit(100) == 212
 
 
-def test_all_functions_speed():
-    """Test all conversion functions."""
-    iterations = 10_000
-
-    start = time.time()
-    for _ in range(iterations):
-        celsius_to_fahrenheit(25)
-        celsius_to_kelvin(25)
-        fahrenheit_to_celsius(77)
-        kelvin_to_celsius(298)
-        fahrenheit_to_kelvin(77)
-        kelvin_to_fahrenheit(298)
-    elapsed = time.time() - start
-
-    print(f"{iterations * 6:,} operations: {elapsed:.3f}s")
-    assert elapsed < 1.2  # slightly relaxed for CI stability
+def test_celsius_to_kelvin():
+    assert celsius_to_kelvin(0) == 273.15
+    assert celsius_to_kelvin(100) == 373.15
 
 
-def test_batch_conversion():
-    """Test batch processing performance."""
-    temps = list(range(-50, 51))  # 101 values
-    iterations = 1_000
+def test_fahrenheit_to_celsius():
+    assert fahrenheit_to_celsius(32) == 0
+    assert fahrenheit_to_celsius(212) == 100
 
-    start = time.time()
-    for _ in range(iterations):
-        [celsius_to_fahrenheit(t) for t in temps]
-        [fahrenheit_to_kelvin(celsius_to_fahrenheit(t)) for t in temps]
-    elapsed = time.time() - start
+def test_fahrenheit_to_kelvin():
+    assert fahrenheit_to_kelvin(32) == 273.15
+    assert fahrenheit_to_kelvin(212) == 373.15
 
-    print(f"Batch {len(temps) * iterations * 2:,} ops: {elapsed:.3f}s")
-    assert elapsed < 2.5
+
+def test_kelvin_to_fahrenheit():
+    # 273.15 K = 32 F
+    assert kelvin_to_fahrenheit(273.15) == 32.0
+    assert kelvin_to_fahrenheit(373.15) == 212.0
+
+def test_kelvin_to_celsius():
+    assert kelvin_to_celsius(273.15) == 0
+    assert kelvin_to_celsius(373.15) == 100

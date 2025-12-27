@@ -1,4 +1,4 @@
-"""Performance tests."""
+"""Performance tests"""
 
 import time
 from src.temp_conv import (
@@ -6,15 +6,17 @@ from src.temp_conv import (
     celsius_to_kelvin,
     fahrenheit_to_celsius,
     kelvin_to_celsius,
+    fahrenheit_to_kelvin,
+    kelvin_to_fahrenheit,
 )
 
 
 def test_single_function_speed():
     """Test single function performance."""
-    iterations = 100000
+    iterations = 100_000
 
     start = time.time()
-    for i in range(iterations):
+    for _ in range(iterations):
         celsius_to_fahrenheit(25)
     elapsed = time.time() - start
 
@@ -24,29 +26,32 @@ def test_single_function_speed():
 
 def test_all_functions_speed():
     """Test all conversion functions."""
-    iterations = 10000
+    iterations = 10_000
 
     start = time.time()
-    for i in range(iterations):
+    for _ in range(iterations):
         celsius_to_fahrenheit(25)
         celsius_to_kelvin(25)
         fahrenheit_to_celsius(77)
         kelvin_to_celsius(298)
+        fahrenheit_to_kelvin(77)
+        kelvin_to_fahrenheit(298)
     elapsed = time.time() - start
 
-    print(f"{iterations * 4:,} operations: {elapsed:.3f}s")
-    assert elapsed < 1.0
+    print(f"{iterations * 6:,} operations: {elapsed:.3f}s")
+    assert elapsed < 1.2  # slightly relaxed for CI stability
 
 
 def test_batch_conversion():
     """Test batch processing performance."""
-    temps = list(range(-50, 51))
-    iterations = 1000
+    temps = list(range(-50, 51))  # 101 values
+    iterations = 1_000
 
     start = time.time()
     for _ in range(iterations):
         [celsius_to_fahrenheit(t) for t in temps]
+        [fahrenheit_to_kelvin(t) for t in temps]
     elapsed = time.time() - start
 
-    print(f"Batch {len(temps) * iterations:,}: {elapsed:.3f}s")
-    assert elapsed < 2.0
+    print(f"Batch {len(temps) * iterations * 2:,}: {elapsed:.3f}s")
+    assert elapsed < 2.5
