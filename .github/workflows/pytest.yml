@@ -36,6 +36,9 @@ jobs:
           path: htmlcov/
 
       - name: Coverage summary
+        env:
+          PYTHONPATH: .
+
         if: matrix.python-version == '3.9'
         run: |
           echo "## Coverage Summary" >> $GITHUB_STEP_SUMMARY
@@ -44,4 +47,4 @@ jobs:
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: Run tests
         run: |
-          PYTHONPATH=. pytest tests/ -v
+          pytest tests/ -v
