@@ -1,7 +1,7 @@
 """Performance tests"""
 
 import time
-from src.temp_conv import (
+from temp_conv import (
     celsius_to_fahrenheit,
     celsius_to_kelvin,
     fahrenheit_to_celsius,
