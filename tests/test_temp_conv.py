@@ -1,6 +1,7 @@
 """Tests for temperature converter."""
+import pytest
 
-from src.temp_conv import (
+from temp_conv import (
     celsius_to_fahrenheit,
     celsius_to_kelvin,
     fahrenheit_to_celsius,
@@ -9,7 +10,7 @@ from src.temp_conv import (
     kelvin_to_fahrenheit,
 )
 
-
+@pytest.fixture
 def test_celsius_to_fahrenheit():
     assert celsius_to_fahrenheit(0) == 32
     assert celsius_to_fahrenheit(100) == 212
